@@ -16,13 +16,12 @@ class Solution {
    {
        if(start > end ) return NULL;
        
-       int element = preorder[index];
        TreeNode * root = new TreeNode(preorder[index++]); //create node and increment preorder index
        
        int pos ;
        for(int i = start; i < preorder.size() ; i++ )
        {
-           if(inorder[i] == element)
+           if(inorder[i] == root->val)
            {
                pos = i; // find postion in inorder of element
                break;
@@ -34,7 +33,7 @@ class Solution {
    }
 public:
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder ) {
-        int index = 0;
+        
       return solve(preorder,inorder,0,preorder.size()-1);
         
     }
