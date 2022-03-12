@@ -9,6 +9,24 @@
  * };
  */
 class Solution {
+    private:
+ ListNode* rotate(ListNode* head, int k) {
+        if(!head) return head;
+        int size = 1;
+        ListNode* tmp = head;
+        while(tmp->next){
+            tmp = tmp->next;
+            size++;
+        }
+        k = size - k % size;
+        tmp->next = head;
+        while(k--)
+        tmp = tmp->next;
+     
+        head = tmp->next;
+        tmp->next = NULL;
+        return head;
+    }
 private:
    ListNode* insideKth(ListNode* head, int k,int count)
    {
@@ -53,6 +71,6 @@ public:
             currcount = currcount->next;
             count++;
         }
-       return insideKth(head,k,count); 
+      return rotate(head,k); 
     }
 };
