@@ -24,11 +24,36 @@ ListNode* reverseLL(ListNode * head,ListNode *right)
     
  return prev;
 }
+private:
+ListNode * anotherMethod(ListNode* head , int left , int right)
+{ 
+    ListNode* temp = new ListNode(-1); //create dummy node and join before head
+        ListNode*prev = temp;
+        temp->next = head;
+     ListNode * start = head;
+    ListNode *then;
+    for(int i = 0; i < left-1; i++)
+        prev = prev->next;
+   
+    start = prev->next;
+        then = start->next;
+    
+    for(int i = 0 ; i < right-left ; i++)
+    {
+       start->next = then->next;
+        then->next =  prev->next;
+        prev->next = then;
+        then = start->next;
+    }
+    return temp->next;
+    
+}
 public:
     ListNode* reverseBetween(ListNode* head, int left, int right) {
         if(!head or !head->next or left == right)
             return head;
         
+        return anotherMethod(head,left,right);
         ListNode* temp = new ListNode(-1); //create dummy node and join before head
         ListNode*prev = temp;
         temp->next = head;
