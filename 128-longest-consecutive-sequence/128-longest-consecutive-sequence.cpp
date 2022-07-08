@@ -2,22 +2,21 @@ class Solution {
 public:
     int longestConsecutive(vector<int>& arr) {
         unordered_set<int> s;
+        int res= 0;
         for(auto i : arr)
             s.insert(i); //insert array elements in unordered set
 
-         int longest = 0;
-	   for(auto& num : s)
-       {
-		int cur_longest = 1;
-		// find consecutive elements in the backward and forward direction from num
-		for(int j = 1; s.count(num - j); j++)
-            s.erase(num - j), cur_longest++;
-           
-		for(int j = 1; s.count(num + j); j++) 
-            s.erase(num + j), cur_longest++;
-           
-		longest = max(longest, cur_longest);  // update longest to hold longest consecutive sequence till now
-	}    
-	return longest;  
+        for(int i = 0 ; i < arr.size() ; i++)
+        {
+          if(s.find(arr[i]-1) == s.end()) //element should be the starting element of series
+          {
+              int j = arr[i];
+              while(s.find(j) != s.end()) // count by adding 1 to j if it is present in set
+                  j++;
+              
+              res = max(res,j-arr[i]); // store the maximum length
+          }
+        }
+        return res;
     }  
 };
