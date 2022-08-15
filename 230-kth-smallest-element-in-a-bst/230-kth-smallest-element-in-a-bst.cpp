@@ -10,26 +10,23 @@
  * };
  */
 class Solution {
+public:
+    int ans = 0;
 private:
-    void traversal(TreeNode* root,priority_queue<int,vector<int>,greater<int>> &p)
+    void traversal(TreeNode* root,int &k)
     {
         if(root == NULL) return;
-        if(root!=NULL)
-        p.push(root->val);
-        
-        traversal(root->left,p);
-        traversal(root->right,p);
+        traversal(root->left,k);
+        if(--k == 0){ // inorder gives us increasing number traversal
+            ans = root->val;
+            return;
+        }
+        traversal(root->right,k);
     }
 public:
     int kthSmallest(TreeNode* root, int k) {
-        priority_queue<int,vector<int>,greater<int>> pq;
-        traversal(root,pq);
-        int ans = 0;
-        while(k--)
-        {
-          ans = pq.top();
-            pq.pop();
-        }
+        traversal(root,k);
+      
         return ans;
     }
 };
