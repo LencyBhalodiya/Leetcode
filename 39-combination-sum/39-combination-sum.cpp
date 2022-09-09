@@ -6,12 +6,13 @@ public:
                  ans.push_back(ds);
             return;
         }
+        if(target < 0) return;
        // pick up the element
-        if(arr[ind] <= target) {
+        // if(arr[ind] <= target) {
             ds.push_back(arr[ind]);
             findCombination(ind, target - arr[ind], arr, ans, ds); //index unchanged and add element to ans array
             ds.pop_back();
-        }
+        // }
         findCombination(ind+1, target, arr, ans, ds);
     }
 public:
