@@ -10,11 +10,10 @@ int solve(vector<int> &arr, int index , int target,vector<vector<int>> &dp)
      return dp[index][target];
 
     int notTake = 0 + solve(arr,index-1,target,dp);
-    int take = INT_MAX;
-    if(target >= arr[index])
-     take = 1 + solve(arr, index , target - arr[index],dp);
+     int take = 1 + solve(arr, index , target - arr[index],dp);
 
-   return dp[index][target] =  min(take,notTake);
+    dp[index][target] =  min(take,notTake);
+    return dp[index][target];
 }
 public:
     int help(vector<int>& coins, int amount, int n,vector<vector<int>>&h)
@@ -32,8 +31,8 @@ public:
     int coinChange(vector<int>& coins, int amount) {
         int n = coins.size();
         vector<vector<int>> dp(n ,vector<int>(amount+1,-1));
-        // int ans = solve(coins,n-1,amount,dp);
-        int ans = help(coins,amount,n-1,dp);
+        int ans = solve(coins,n-1,amount,dp);
+        // int ans = help(coins,amount,n-1,dp);
         if(ans >= 1e9)
             return -1;
         else
